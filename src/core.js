@@ -1,5 +1,7 @@
 import { List, Map } from 'immutable'
 
+export const INITIAL_STATE = Map()
+
 export function setEntries(state, entries) {
   // List() converts and iteratible to an immutable List
   return state.set('entries', List(entries))
@@ -16,7 +18,7 @@ export function next(state) {
       .remove('entries')
       .set('winner', entries.first())
   }
-  
+
   // Merge overwrites existing properties with those passed in
   return state.merge({
     vote: Map({ pair: entries.take(2) }),
