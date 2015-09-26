@@ -122,49 +122,41 @@ describe('application logic', () => {
   describe('vote', () => {
 
     it('creates a tally for the voted entry', () => {
-      const state = Map({
-        entries: List(),
-        vote: Map({
-          pair: List(['Trainspotting', '28 Days Later'])
-        })
+      // Only `vote` subportion of state
+      // Reducer is responsible for making sure the correct
+      // subportion is picked out
+
+      const state = fromJS({
+        pair: ['Trainspotting', '28 Days Later']
       })
 
       const nextState = vote(state, 'Trainspotting')
 
-      expect(nextState).to.equal(Map({
-        entries: List(),
-        vote: Map({
-          pair: List(['Trainspotting', '28 Days Later']),
-          tally: Map({
-            'Trainspotting': 1
-          })
-        })
+      expect(nextState).to.equal(fromJS({
+        pair: ['Trainspotting', '28 Days Later'],
+        tally: {
+          'Trainspotting': 1
+        }
       }))
     })
 
     it('increments an existing tally for the voted entry', () => {
-      const state = Map({
-        entries: List(),
-        vote: Map({
-          pair: List(['Trainspotting', '28 Days Later']),
-          tally: Map({
-            'Trainspotting': 4,
-            '28 Days Later': 2
-          })
-        })
+      const state = fromJS({
+        pair: ['Trainspotting', '28 Days Later'],
+        tally: {
+          'Trainspotting': 4,
+          '28 Days Later': 2
+        }
       })
 
       const nextState = vote(state, 'Trainspotting')
 
-      expect(nextState).to.equal(Map({
-        entries: List(),
-        vote: Map({
-          pair: List(['Trainspotting', '28 Days Later']),
-          tally: Map({
-            'Trainspotting': 5,
-            '28 Days Later': 2
-          })
-        })
+      expect(nextState).to.equal(fromJS({
+        pair: ['Trainspotting', '28 Days Later'],
+        tally: {
+          'Trainspotting': 5,
+          '28 Days Later': 2
+        }
       }))
     })
   })

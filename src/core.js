@@ -26,12 +26,12 @@ export function next(state) {
   })
 }
 
-export function vote(state, entry) {
-  // Navigate to state.vote.tally[entry] and apply the function
+export function vote(voteState, entry) {
+  // Navigate to voteState.tally[entry] and apply the function
   // If any keys are missing along the path, create new Maps() in their place
   // If the value at the end is missing, initialize with '0'
-  return state.updateIn(
-    ['vote', 'tally', entry],
+  return voteState.updateIn(
+    ['tally', entry],
     0,
     (tally) => tally + 1
   )
